@@ -2,9 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Trash2, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useStripeCheckout } from '../hooks/useStripeCheckout';
+import { useAuth } from '../context/AuthContext';
 
 const CartPage: React.FC = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const { user } = useAuth();
+  const { createCheckoutSession, loading } = useStripeCheckout();
+  
+  const handleCheckout = async () => {
+    if (!user) {
+      window.location.href = '/login';
+      return;
+    }
+
+    // For now, we'll create a simple checkout for the total amount
+    // In a real implementation, you'd want to create a custom price or use line items
+    try {
+      // This is a simplified approach - you'd typically create a custom checkout session
+      // that includes all cart items. For now, we'll redirect to a generic checkout.
+      alert('Checkout functionality needs to be configured with your specific Stripe setup. Please use the "Buy Now" buttons on individual products for now.');
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('There was an error processing your request. Please try again.');
+    }
+  };
   
   if (cartItems.length === 0) {
     return (
@@ -147,9 +169,17 @@ const CartPage: React.FC = () => {
               </div>
             </div>
             
-            <button className="btn btn-primary w-full">
-              Proceed to Checkout
+            <button 
+              onClick={handleCheckout}
+              disabled={loading}
+              className={`btn btn-primary w-full ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+            >
+              {loading ? 'Processing...' : 'Proceed to Checkout'}
             </button>
+            
+            <p className="text-sm text-neutral-500 mt-4 text-center">
+              For now, please use the "Buy Now" button on individual product pages for Stripe checkout.
+            </p>
           </div>
         </div>
       </div>
