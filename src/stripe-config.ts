@@ -10,7 +10,7 @@ export interface StripeProduct {
 export const stripeProducts: Record<string, StripeProduct> = {
   'luminous-glow-serum': {
     id: 'prod_luminous_glow',
-    priceId: 'price_1234567890', // Replace with your actual Stripe price ID
+    priceId: 'price_1RWNi9PRm6MXXi3NQhbOK8lB', // Replace with your actual Stripe price ID
     name: 'Luminous Glow Serum',
     description: 'Our revolutionary serum combines vitamin C and hyaluronic acid to deliver intense hydration while brightening your complexion.',
     price: 48.00,
@@ -18,7 +18,7 @@ export const stripeProducts: Record<string, StripeProduct> = {
   },
   'gentle-cleansing-foam': {
     id: 'prod_gentle_cleansing',
-    priceId: 'price_1234567891', // Replace with your actual Stripe price ID
+    priceId: 'price_1RWNfTPRm6MXXi3Ni16KN0LO', // Replace with your actual Stripe price ID
     name: 'Gentle Cleansing Foam',
     description: 'This gentle yet effective cleansing foam removes impurities and makeup without stripping your skin\'s natural moisture.',
     price: 32.00,
@@ -26,7 +26,7 @@ export const stripeProducts: Record<string, StripeProduct> = {
   },
   'renewing-night-cream': {
     id: 'prod_renewing_night',
-    priceId: 'price_1234567892', // Replace with your actual Stripe price ID
+    priceId: 'price_1RWNdGPRm6MXXi3N4y7IWW4a', // Replace with your actual Stripe price ID
     name: 'Renewing Night Cream',
     description: 'Work while you sleep with our luxurious night cream. Packed with peptides and botanical extracts.',
     price: 56.00,
