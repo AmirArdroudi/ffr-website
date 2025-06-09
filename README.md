@@ -1,20 +1,24 @@
 ## FreshFaceRoya Landing page
 
 ### ✅ What's Already Working:
-Complete Stripe integration with checkout sessions and webhooks
-Database schema for customers, subscriptions, and orders
-Authentication flow that creates Stripe customers automatically
-Buy Now buttons on product cards and detail pages
-Checkout success page handling
+1. Complete Stripe integration with checkout sessions and webhooks
+2. Database schema for customers, subscriptions, and orders
+3. Authentication flow that creates Stripe customers automatically
+4. Buy Now buttons on product cards and detail pages
+5. Checkout success page handling
+
+
+
+
 ### 🔧 What You Need to Configure:
-Create Products in Stripe Dashboard:
+1. Create Products in Stripe Dashboard:
 
-Go to your Stripe Dashboard → Products
-Create a product for each item in your catalog
-Copy the Price ID for each product
-Update the stripe-config.ts file:
+- Go to your Stripe Dashboard → Products
+- Create a product for each item in your catalog
+- Copy the Price ID for each product
+2. Update the stripe-config.ts file:
 
-Replace the placeholder price_1234567890 values with your actual Stripe Price IDs
+- Replace the placeholder price_1234567890 values with your actual Stripe Price IDs
 The file is already mapped to your existing products
 Set Environment Variables:
 
