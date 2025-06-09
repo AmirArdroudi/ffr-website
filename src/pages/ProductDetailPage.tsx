@@ -3,11 +3,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ShoppingBag, Heart, ArrowLeft, Check } from 'lucide-react';
 import { getProductById } from '../data/products';
 import { useCart } from '../context/CartContext';
+import { useStripeCheckout } from '../hooks/useStripeCheckout';
+import { getStripeProductByProductId } from '../stripe-config';
+import { useAuth } from '../context/AuthContext';
 
 const ProductDetailPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { user } = useAuth();
+  const { createCheckoutSession, loading } = useStripeCheckout();
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
   const [addedToCart, setAddedToCart] = useState(false);
@@ -45,6 +50,26 @@ const ProductDetailPage: React.FC = () => {
     }
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
+  };
+
+  const handleBuyNow = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    const stripeProduct = getStripeProductByProductId(product.id);
+    if (!stripeProduct) {
+      alert('This product is not available for purchase at the moment.');
+      return;
+    }
+
+    try {
+      await createCheckoutSession(stripeProduct.priceId, stripeProduct.mode);
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('There was an error processing your request. Please try again.');
+    }
   };
   
   return (
@@ -101,7 +126,7 @@ const ProductDetailPage: React.FC = () => {
             <div className="flex space-x-4 mb-8">
               <button 
                 onClick={handleAddToCart}
-                className={`btn btn-primary flex-grow flex items-center justify-center ${addedToCart ? 'bg-green-500 hover:bg-green-600' : ''}`}
+                className={`btn btn-outline flex-grow flex items-center justify-center ${addedToCart ? 'bg-green-50 border-green-500 text-green-700' : ''}`}
               >
                 {addedToCart ? (
                   <>
@@ -114,6 +139,14 @@ const ProductDetailPage: React.FC = () => {
                     Add to Cart
                   </>
                 )}
+              </button>
+              
+              <button 
+                onClick={handleBuyNow}
+                disabled={loading}
+                className={`btn btn-primary flex-grow ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+              >
+                {loading ? 'Processing...' : 'Buy Now'}
               </button>
               
               <button className="p-3 border border-neutral-300 rounded-lg text-neutral-600 hover:text-primary-500 hover:border-primary-500 transition-colors">

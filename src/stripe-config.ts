@@ -1,21 +1,75 @@
 export interface StripeProduct {
   id: string;
   priceId: string;
+  name: string;
   description: string;
+  price: number;
   mode: 'payment' | 'subscription';
 }
 
-export const products: Record<string, StripeProduct> = {
-  'chamomile-mask': {
-    id: 'prod_SRFfIITtbkIYpN',
-    priceId: 'price_1RWN9sPRm6MXXi3NDrwaEB4p',
-    description: 'Calm, lift, and glow with this soothing hydro jelly mask. Infused with chamomile petals, it helps tighten the skin, reduce redness and irritation, and deliver deep hydration for a soft, luminous finish. Known for its powerful anti-aging properties, chamomile supports skin elasticity and shields against premature aging—making it the ideal treatment for stressed or tired skin.',
+export const stripeProducts: Record<string, StripeProduct> = {
+  'luminous-glow-serum': {
+    id: 'prod_luminous_glow',
+    priceId: 'price_1234567890', // Replace with your actual Stripe price ID
+    name: 'Luminous Glow Serum',
+    description: 'Our revolutionary serum combines vitamin C and hyaluronic acid to deliver intense hydration while brightening your complexion.',
+    price: 48.00,
     mode: 'payment'
   },
-  'spirulina-mask': {
-    id: 'prod_SRFdUzhg45oijc',
-    priceId: 'price_1RWN7vPRm6MXXi3NYtMTwxPU',
-    description: 'Purify and energize your skin with this nutrient-rich hydro jelly mask. Packed with iron, vitamins, protein, and chlorophyll, Spirulina helps reduce dark spots, combat acne, and detoxify the skin. The result? A clearer, healthier, and more youthful-looking complexion that glows from within.',
+  'gentle-cleansing-foam': {
+    id: 'prod_gentle_cleansing',
+    priceId: 'price_1234567891', // Replace with your actual Stripe price ID
+    name: 'Gentle Cleansing Foam',
+    description: 'This gentle yet effective cleansing foam removes impurities and makeup without stripping your skin\'s natural moisture.',
+    price: 32.00,
+    mode: 'payment'
+  },
+  'renewing-night-cream': {
+    id: 'prod_renewing_night',
+    priceId: 'price_1234567892', // Replace with your actual Stripe price ID
+    name: 'Renewing Night Cream',
+    description: 'Work while you sleep with our luxurious night cream. Packed with peptides and botanical extracts.',
+    price: 56.00,
+    mode: 'payment'
+  },
+  'radiance-face-mask': {
+    id: 'prod_radiance_mask',
+    priceId: 'price_1234567893', // Replace with your actual Stripe price ID
+    name: 'Radiance Face Mask',
+    description: 'This luxurious mask delivers an instant glow with a blend of fruit enzymes and clay.',
+    price: 38.00,
+    mode: 'payment'
+  },
+  'daily-defense-spf': {
+    id: 'prod_daily_spf',
+    priceId: 'price_1234567894', // Replace with your actual Stripe price ID
+    name: 'Daily Defense SPF 40',
+    description: 'Protect your skin from harmful UV rays with our lightweight, non-greasy SPF.',
+    price: 42.00,
+    mode: 'payment'
+  },
+  'hydrating-essence-toner': {
+    id: 'prod_hydrating_toner',
+    priceId: 'price_1234567895', // Replace with your actual Stripe price ID
+    name: 'Hydrating Essence Toner',
+    description: 'This alcohol-free toner hydrates and balances your skin after cleansing.',
+    price: 34.00,
     mode: 'payment'
   }
 };
+
+// Helper function to get Stripe product by regular product ID
+export function getStripeProductByProductId(productId: string): StripeProduct | undefined {
+  // Map product IDs to Stripe product keys
+  const productMapping: Record<string, string> = {
+    '1': 'luminous-glow-serum',
+    '2': 'gentle-cleansing-foam',
+    '3': 'renewing-night-cream',
+    '4': 'radiance-face-mask',
+    '5': 'daily-defense-spf',
+    '6': 'hydrating-essence-toner'
+  };
+  
+  const stripeKey = productMapping[productId];
+  return stripeKey ? stripeProducts[stripeKey] : undefined;
+}
