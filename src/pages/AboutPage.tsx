@@ -6,6 +6,13 @@ const AboutPage: React.FC = () => {
       <div className="container">
         {/* Hero Section */}
         <div className="text-center mb-16">
+          <div className="flex justify-center mb-6">
+            <img 
+              src="/FFR-logo.jpeg" 
+              alt="Fresh Face Roya" 
+              className="w-24 h-24 rounded-full object-cover shadow-lg"
+            />
+          </div>
           <h1 className="text-4xl md:text-5xl font-display font-medium mb-4 text-primary-900">Our Story</h1>
           <p className="text-neutral-600 max-w-2xl mx-auto">
             Fresh Face Roya was born from a passion for clean beauty and the belief that skincare should be both effective and pure.

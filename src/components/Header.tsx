@@ -25,8 +25,15 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
     >
       <div className="container flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-display font-medium tracking-wide text-primary-900">
-          Fresh Face Roya
+        <Link to="/" className="flex items-center space-x-3">
+          <img 
+            src="/FFR-logo.jpeg" 
+            alt="Fresh Face Roya" 
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <span className="text-2xl font-display font-medium tracking-wide text-primary-900">
+            Fresh Face Roya
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
