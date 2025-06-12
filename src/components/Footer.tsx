@@ -9,7 +9,14 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand Column */}
           <div>
-            <h3 className="text-xl font-display font-medium mb-4 text-primary-900">Fresh Face Roya</h3>
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="/FFR-logo.jpeg" 
+                alt="Fresh Face Roya" 
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <h3 className="text-xl font-display font-medium text-primary-900">Fresh Face Roya</h3>
+            </div>
             <p className="text-neutral-600 mb-6">
               Skincare rooted in purity. Powered by results.
             </p>
