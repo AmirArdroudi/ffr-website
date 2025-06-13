@@ -11,7 +11,8 @@ import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
-import BlogPage from './pages/BlogPage'; // <-- Add this import
+import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
 import Layout from './components/Layout';
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
           <Route path="shop/:productId" element={<ProductDetailPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="contact" element={<ContactPage />} />
-          <Route path="blog" element={<BlogPage />} /> {/* <-- Add this route */}
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="blog/:slug" element={<BlogPostPage />} />
           <Route path="cart" element={
             <PrivateRoute>
               <CartPage />
