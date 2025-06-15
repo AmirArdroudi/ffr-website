@@ -8,50 +8,50 @@ export interface StripeProduct {
 }
 
 export const stripeProducts: Record<string, StripeProduct> = {
-  'luminous-glow-serum': {
-    id: 'prod_luminous_glow',
+  'turmeric-brightening-serum': {
+    id: 'prod_turmeric_serum',
     priceId: 'price_1RWNi9PRm6MXXi3NQhbOK8lB', // Replace with your actual Stripe price ID
-    name: 'Luminous Glow Serum',
-    description: 'Our revolutionary serum combines vitamin C and hyaluronic acid to deliver intense hydration while brightening your complexion.',
+    name: 'Turmeric Brightening Serum',
+    description: 'Our powerful turmeric serum harnesses the anti-inflammatory and brightening properties of curcuma longa.',
     price: 48.00,
     mode: 'payment'
   },
-  'gentle-cleansing-foam': {
-    id: 'prod_gentle_cleansing',
+  '24k-gold-crystal-mask': {
+    id: 'prod_24k_gold_mask',
     priceId: 'price_1RWNfTPRm6MXXi3Ni16KN0LO', // Replace with your actual Stripe price ID
-    name: 'Gentle Cleansing Foam',
-    description: 'This gentle yet effective cleansing foam removes impurities and makeup without stripping your skin\'s natural moisture.',
-    price: 32.00,
+    name: '24K Gold Crystal Soft Film Powder',
+    description: 'Indulge in luxury with our 24K gold-infused crystal soft film powder mask.',
+    price: 78.00,
     mode: 'payment'
   },
-  'renewing-night-cream': {
-    id: 'prod_renewing_night',
+  'astaxanthin-crystal-mask': {
+    id: 'prod_astaxanthin_mask',
     priceId: 'price_1RWNdGPRm6MXXi3N4y7IWW4a', // Replace with your actual Stripe price ID
-    name: 'Renewing Night Cream',
-    description: 'Work while you sleep with our luxurious night cream. Packed with peptides and botanical extracts.',
-    price: 56.00,
+    name: 'Astaxanthin Crystal Soft Film Powder',
+    description: 'Experience the power of astaxanthin, one of nature\'s most potent antioxidants.',
+    price: 68.00,
     mode: 'payment'
   },
-  'radiance-face-mask': {
-    id: 'prod_radiance_mask',
+  'chamomile-petals-mask': {
+    id: 'prod_chamomile_mask',
     priceId: 'price_1234567893', // Replace with your actual Stripe price ID
-    name: 'Radiance Face Mask',
-    description: 'This luxurious mask delivers an instant glow with a blend of fruit enzymes and clay.',
-    price: 38.00,
+    name: 'Chamomile Petals Moisturize & Repair Jelly Mask',
+    description: 'Soothe and repair your skin with our gentle chamomile petals jelly mask.',
+    price: 58.00,
     mode: 'payment'
   },
-  'daily-defense-spf': {
-    id: 'prod_daily_spf',
+  'retinol-repair-oil': {
+    id: 'prod_retinol_oil',
     priceId: 'price_1234567894', // Replace with your actual Stripe price ID
-    name: 'Daily Defense SPF 40',
-    description: 'Protect your skin from harmful UV rays with our lightweight, non-greasy SPF.',
-    price: 42.00,
+    name: 'Rapid Wrinkle Repair Retinol Oil',
+    description: 'Transform your skin overnight with our advanced retinol oil formula.',
+    price: 65.00,
     mode: 'payment'
   },
-  'hydrating-essence-toner': {
-    id: 'prod_hydrating_toner',
+  'hydrating-rose-toner': {
+    id: 'prod_rose_toner',
     priceId: 'price_1234567895', // Replace with your actual Stripe price ID
-    name: 'Hydrating Essence Toner',
+    name: 'Hydrating Rose Essence Toner',
     description: 'This alcohol-free toner hydrates and balances your skin after cleansing.',
     price: 34.00,
     mode: 'payment'
@@ -62,12 +62,12 @@ export const stripeProducts: Record<string, StripeProduct> = {
 export function getStripeProductByProductId(productId: string): StripeProduct | undefined {
   // Map product IDs to Stripe product keys
   const productMapping: Record<string, string> = {
-    '1': 'luminous-glow-serum',
-    '2': 'gentle-cleansing-foam',
-    '3': 'renewing-night-cream',
-    '4': 'radiance-face-mask',
-    '5': 'daily-defense-spf',
-    '6': 'hydrating-essence-toner'
+    '1': 'turmeric-brightening-serum',
+    '2': '24k-gold-crystal-mask',
+    '3': 'astaxanthin-crystal-mask',
+    '4': 'chamomile-petals-mask',
+    '5': 'retinol-repair-oil',
+    '6': 'hydrating-rose-toner'
   };
   
   const stripeKey = productMapping[productId];
