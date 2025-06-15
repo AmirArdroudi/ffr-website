@@ -1,5 +1,4 @@
 import { marked } from 'marked';
-import matter from 'gray-matter';
 import { BlogPost, BlogPostMatter } from '../types/blog';
 
 // Configure marked for better rendering
@@ -17,6 +16,55 @@ export const blogPostSlugs = [
   'seasonal-skincare-tips'
 ];
 
+// Simple frontmatter parser that works in the browser
+function parseFrontmatter(content: string): { data: BlogPostMatter; content: string } {
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const match = content.match(frontmatterRegex);
+  
+  if (!match) {
+    return {
+      data: {} as BlogPostMatter,
+      content: content
+    };
+  }
+  
+  const frontmatterText = match[1];
+  const markdownContent = match[2];
+  
+  // Parse YAML-like frontmatter
+  const data: any = {};
+  const lines = frontmatterText.split('\n');
+  
+  for (const line of lines) {
+    const colonIndex = line.indexOf(':');
+    if (colonIndex > 0) {
+      const key = line.substring(0, colonIndex).trim();
+      let value = line.substring(colonIndex + 1).trim();
+      
+      // Remove quotes if present
+      if ((value.startsWith('"') && value.endsWith('"')) || 
+          (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+      
+      // Handle arrays (tags)
+      if (value.startsWith('[') && value.endsWith(']')) {
+        const arrayContent = value.slice(1, -1);
+        data[key] = arrayContent.split(',').map(item => 
+          item.trim().replace(/^["']|["']$/g, '')
+        ).filter(item => item.length > 0);
+      } else {
+        data[key] = value;
+      }
+    }
+  }
+  
+  return {
+    data: data as BlogPostMatter,
+    content: markdownContent
+  };
+}
+
 export async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     const response = await fetch(`/posts/${slug}.md`);
@@ -26,7 +74,7 @@ export async function fetchBlogPost(slug: string): Promise<BlogPost | null> {
     }
     
     const rawContent = await response.text();
-    const { data, content: markdownContent } = matter(rawContent);
+    const { data, content: markdownContent } = parseFrontmatter(rawContent);
     
     const frontMatter = data as BlogPostMatter;
     const htmlContent = await marked.parse(markdownContent);
