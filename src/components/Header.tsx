@@ -58,6 +58,11 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
           }>
             Contact
           </NavLink>
+          <NavLink to="/blog" className={({isActive}) =>
+            isActive ? 'nav-link nav-link-active' : 'nav-link'
+          }>
+            Blog
+          </NavLink>
         </nav>
 
         {/* Cart & Mobile Menu Toggle */}
@@ -120,6 +125,15 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
+            </NavLink>
+            <NavLink
+              to="/blog"
+              className={({isActive}) =>
+                `text-xl ${isActive ? 'text-primary-500 font-medium' : 'text-neutral-800'}`
+              }
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
             </NavLink>
           </nav>
         </div>
