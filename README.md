@@ -136,3 +136,12 @@ After Caddy is running and configured:
 
 If you encounter issues, check the Caddy logs for errors. The location of the logs can vary depending on how you installed and run Caddy. If running as a service with `systemd`, you can usually view logs with:
 `sudo journalctl -u caddy --no-pager | less +G`
+## Automatic deployment
+
+ssh coda@YOUR_SERVER_IP
+Use code with caution.
+Bash
+Run the script:
+Navigate to your project folder and execute it like this:
+cd /var/www/ffr-website
+./deploy.sh
