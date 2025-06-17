@@ -97,7 +97,7 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="w-full md:w-1/2">
               <img 
-                src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" 
+                src="https://xw50l2p6bl.ufs.sh/f/72IFtnTcXNiyV7GG58vFOoE84ZxjhTiH32UJk1CR6NW5fmYG" 
                 alt="Natural skincare ingredients" 
                 className="w-full h-auto rounded-xl object-cover"
               />
