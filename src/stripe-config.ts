@@ -8,52 +8,52 @@ export interface StripeProduct {
 }
 
 export const stripeProducts: Record<string, StripeProduct> = {
-  'turmeric-brightening-serum': {
-    id: 'prod_turmeric_serum',
-    priceId: 'price_1RWNi9PRm6MXXi3NQhbOK8lB', // Replace with your actual Stripe price ID
-    name: 'Turmeric Brightening Serum',
-    description: 'Our powerful turmeric serum harnesses the anti-inflammatory and brightening properties of curcuma longa.',
-    price: 48.00,
+  'astaxanthin-crystal-mask': {
+    id: 'prod_SRGEyJYA8M1b86',
+    priceId: 'price_1RWNi9PRm6MXXi3NQhbOK8lB',
+    name: 'Astaxanthin Crystal Soft Film Powder - Jelly Face Mask',
+    description: 'Moisturizer, anti-wrinkle, Skin Lightening, Nutrients & Nourishment, Increased Skin Elasticity, Anti-Aging Properties, Stress Reduction and Relaxation, Deep Cleaning.',
+    price: 35.00,
     mode: 'payment'
   },
   '24k-gold-crystal-mask': {
-    id: 'prod_24k_gold_mask',
-    priceId: 'price_1RWNfTPRm6MXXi3Ni16KN0LO', // Replace with your actual Stripe price ID
-    name: '24K Gold Crystal Soft Film Powder',
-    description: 'Indulge in luxury with our 24K gold-infused crystal soft film powder mask.',
-    price: 78.00,
+    id: 'prod_SRGB1ro3FtBIeJ',
+    priceId: 'price_1RWNfTPRm6MXXi3Ni16KN0LO',
+    name: '24K Gold Crystal Soft Film Powder - Jelly Face Mask',
+    description: 'Elevate your skincare routine with the luxury of gold. This rejuvenating hydro jelly mask helps reduce fine lines and wrinkles, while delivering powerful antioxidant protection. Enriched to boost skin elasticity and deeply nourish the complexion, it leaves your skin visibly firmer, smoother, and more radiant.',
+    price: 35.00,
     mode: 'payment'
   },
-  'astaxanthin-crystal-mask': {
-    id: 'prod_astaxanthin_mask',
-    priceId: 'price_1RWNdGPRm6MXXi3N4y7IWW4a', // Replace with your actual Stripe price ID
-    name: 'Astaxanthin Crystal Soft Film Powder',
-    description: 'Experience the power of astaxanthin, one of nature\'s most potent antioxidants.',
-    price: 68.00,
+  'lavender-petals-crystal-mask': {
+    id: 'prod_SRG9Mmx0MmqPJb',
+    priceId: 'price_1RWNdGPRm6MXXi3N4y7IWW4a',
+    name: 'Lavender Petals Crystal Soft Film Powder - Jelly Face Mask',
+    description: 'Soothe and restore your skin with the calming power of lavender. This hydro jelly mask helps reduce pigmentation, lighten discoloration, and fade age spots and blemishes for a brighter, more even complexion. It provides instant relief for inflammation, swelling, and skin stress, leaving your skin balanced, calm, and radiant. Size 680 gm',
+    price: 35.00,
     mode: 'payment'
   },
-  'chamomile-petals-mask': {
-    id: 'prod_chamomile_mask',
-    priceId: 'price_1234567893', // Replace with your actual Stripe price ID
-    name: 'Chamomile Petals Moisturize & Repair Jelly Mask',
-    description: 'Soothe and repair your skin with our gentle chamomile petals jelly mask.',
-    price: 58.00,
+  'rose-petals-crystal-mask': {
+    id: 'prod_SRG6RPNVvpDsb1',
+    priceId: 'price_1RWNa8PRm6MXXi3NdRQs1LWG',
+    name: 'Rose Petals Crystal Soft Film Powder - Jelly Face Mask',
+    description: 'Indulge your skin in the luxurious care of Rose Petals Crystal Soft Film Powder—a premium hydro jelly mask that transforms from a silky gel into a cushiony, rubber-like layer, sealing in moisture and driving essential nutrients deep into the skin.',
+    price: 35.00,
     mode: 'payment'
   },
-  'retinol-repair-oil': {
-    id: 'prod_retinol_oil',
-    priceId: 'price_1234567894', // Replace with your actual Stripe price ID
-    name: 'Rapid Wrinkle Repair Retinol Oil',
-    description: 'Transform your skin overnight with our advanced retinol oil formula.',
-    price: 65.00,
+  'chamomile-petals-crystal-mask': {
+    id: 'prod_SRFfIITtbkIYpN',
+    priceId: 'price_1RWN9sPRm6MXXi3NDrwaEB4p',
+    name: 'Chamomile Petals Crystal Soft Film Powder - Jelly Face Mask',
+    description: 'Calm, lift, and glow with this soothing hydro jelly mask. Infused with chamomile petals, it helps tighten the skin, reduce redness and irritation, and deliver deep hydration for a soft, luminous finish. Known for its powerful anti-aging properties, chamomile supports skin elasticity and shields against premature aging—making it the ideal treatment for stressed or tired skin.',
+    price: 35.00,
     mode: 'payment'
   },
-  'hydrating-rose-toner': {
-    id: 'prod_rose_toner',
-    priceId: 'price_1234567895', // Replace with your actual Stripe price ID
-    name: 'Hydrating Rose Essence Toner',
-    description: 'This alcohol-free toner hydrates and balances your skin after cleansing.',
-    price: 34.00,
+  'spirulina-crystal-mask': {
+    id: 'prod_SRFdUzhg45oijc',
+    priceId: 'price_1RWN7vPRm6MXXi3NYtMTwxPU',
+    name: 'Spirulina Crystal Soft Film Powder - Jelly Face Mask',
+    description: 'Purify and energize your skin with this nutrient-rich hydro jelly mask. Packed with iron, vitamins, protein, and chlorophyll, Spirulina helps reduce dark spots, combat acne, and detoxify the skin. The result? A clearer, healthier, and more youthful-looking complexion that glows from within.',
+    price: 35.00,
     mode: 'payment'
   }
 };
@@ -62,12 +62,12 @@ export const stripeProducts: Record<string, StripeProduct> = {
 export function getStripeProductByProductId(productId: string): StripeProduct | undefined {
   // Map product IDs to Stripe product keys
   const productMapping: Record<string, string> = {
-    '1': 'turmeric-brightening-serum',
+    '1': 'astaxanthin-crystal-mask',
     '2': '24k-gold-crystal-mask',
-    '3': 'astaxanthin-crystal-mask',
-    '4': 'chamomile-petals-mask',
-    '5': 'retinol-repair-oil',
-    '6': 'hydrating-rose-toner'
+    '3': 'lavender-petals-crystal-mask',
+    '4': 'rose-petals-crystal-mask',
+    '5': 'chamomile-petals-crystal-mask',
+    '6': 'spirulina-crystal-mask'
   };
   
   const stripeKey = productMapping[productId];
