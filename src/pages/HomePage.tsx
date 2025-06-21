@@ -10,6 +10,18 @@ const HomePage: React.FC = () => {
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
   
   useEffect(() => {
+    // Check if IntersectionObserver is supported
+    if (!window.IntersectionObserver) {
+      // Fallback: just add the animation class immediately
+      sectionsRef.current.forEach((section) => {
+        if (section) {
+          section.style.opacity = '1';
+          section.style.transform = 'translateY(0)';
+        }
+      });
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -35,7 +47,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Enhanced Hero Section */}
-      <section className="relative h-[95vh] flex items-center overflow-hidden">
+      <section className="relative h-screen flex items-center overflow-hidden" style={{minHeight: '95vh'}}>
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.pexels.com/photos/3762760/pexels-photo-3762760.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" 

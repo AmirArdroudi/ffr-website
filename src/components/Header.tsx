@@ -88,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({ isScrolled }) => {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 top-[60px] bg-white z-40 md:hidden animate-fade-in">
+        <div className="fixed inset-0 top-16 bg-white z-40 md:hidden" style={{animation: 'fadeIn 0.3s ease-out'}}>
           <nav className="flex flex-col p-6 space-y-6">
             <NavLink 
               to="/" 
