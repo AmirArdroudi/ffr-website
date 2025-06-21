@@ -1,4 +1,4 @@
-// Polyfills for older browsers
+// Polyfills for Chrome 92 and older browsers
 
 // Object.fromEntries polyfill (Chrome 73+)
 if (!Object.fromEntries) {
@@ -43,6 +43,19 @@ if (!Array.prototype.at) {
   };
 }
 
+// Element.scrollTo polyfill for older browsers
+if (!Element.prototype.scrollTo) {
+  Element.prototype.scrollTo = function(options: ScrollToOptions | number, y?: number) {
+    if (typeof options === 'object') {
+      this.scrollLeft = options.left || 0;
+      this.scrollTop = options.top || 0;
+    } else {
+      this.scrollLeft = options;
+      this.scrollTop = y || 0;
+    }
+  };
+}
+
 // IntersectionObserver polyfill check
 if (!window.IntersectionObserver) {
   console.warn('IntersectionObserver not supported. Some animations may not work.');
@@ -51,6 +64,19 @@ if (!window.IntersectionObserver) {
 // Web Share API fallback
 if (!navigator.share) {
   console.info('Web Share API not supported. Using clipboard fallback.');
+}
+
+// CSS.supports polyfill for feature detection
+if (!window.CSS || !window.CSS.supports) {
+  window.CSS = window.CSS || {};
+  window.CSS.supports = function() {
+    return false; // Conservative fallback
+  };
+}
+
+// ResizeObserver polyfill check
+if (!window.ResizeObserver) {
+  console.warn('ResizeObserver not supported. Some responsive features may not work.');
 }
 
 export {};

@@ -127,29 +127,29 @@
     @apply text-primary-600 hover:text-primary-700 underline;
   }
 
-  /* Line clamp utilities - fallback for older browsers */
+  /* Line clamp utilities - Compatible with Chrome 92 */
   .line-clamp-2 {
+    overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    overflow: hidden;
     /* Fallback for browsers that don't support -webkit-line-clamp */
     max-height: 3em;
     line-height: 1.5em;
   }
   
   .line-clamp-3 {
+    overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    overflow: hidden;
     /* Fallback for browsers that don't support -webkit-line-clamp */
     max-height: 4.5em;
     line-height: 1.5em;
   }
 }
 
-/* Animations with fallbacks */
+/* Animations compatible with Chrome 92 */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -190,7 +190,7 @@
   animation-delay: 400ms;
 }
 
-/* Scrollbar hide utility for older browsers */
+/* Scrollbar hide utility for Chrome 92 */
 .scrollbar-hide {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
   scrollbar-width: none;  /* Firefox */
@@ -198,4 +198,29 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
+}
+
+/* Ensure compatibility with older flexbox implementations */
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.items-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.justify-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.justify-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
