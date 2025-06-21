@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Sparkles, Gift } from 'lucide-react';
+import { subscribeEmail } from '../utils/emailService';
+import { useAuth } from '../context/AuthContext';
 
 interface OfferModalProps {
   isOpen: boolean;
@@ -11,6 +13,8 @@ const OfferModal: React.FC<OfferModalProps> = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const { user } = useAuth();
 
   const handleClaimOffer = () => {
     setStep('email');
@@ -21,10 +25,17 @@ const OfferModal: React.FC<OfferModalProps> = ({ isOpen, onClose }) => {
     if (!email) return;
 
     setIsSubmitting(true);
+    setError('');
     
-    // Simulate API call to save email
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Save email to Supabase
+      await subscribeEmail({
+        email,
+        source: 'offer_modal',
+        offer_claimed: true,
+        user_id: user?.id
+      });
+
       setIsSubmitted(true);
       
       // Store the offer claim in localStorage
@@ -34,14 +45,30 @@ const OfferModal: React.FC<OfferModalProps> = ({ isOpen, onClose }) => {
       // Close modal after success message
       setTimeout(() => {
         onClose();
-      }, 2000);
-    }, 1000);
+      }, 3000);
+    } catch (err: any) {
+      console.error('Error saving email:', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleNotInterested = () => {
     localStorage.setItem('ffr_offer_dismissed', 'true');
     onClose();
   };
+
+  // Reset state when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setStep('offer');
+      setEmail('');
+      setIsSubmitting(false);
+      setIsSubmitted(false);
+      setError('');
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -137,6 +164,12 @@ const OfferModal: React.FC<OfferModalProps> = ({ isOpen, onClose }) => {
                 </p>
               </div>
 
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                  {error}
+                </div>
+              )}
+
               <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto">
                 <div className="mb-6">
                   <input
@@ -159,7 +192,7 @@ const OfferModal: React.FC<OfferModalProps> = ({ isOpen, onClose }) => {
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                      Processing...
+                      Saving...
                     </span>
                   ) : (
                     'Continue'
@@ -182,7 +215,7 @@ const OfferModal: React.FC<OfferModalProps> = ({ isOpen, onClose }) => {
                 </h2>
                 
                 <p className="text-lg text-neutral-600 mb-6">
-                  Your 20% discount is ready! Check your email for the exclusive code.
+                  Your email has been saved and your 20% discount is ready!
                 </p>
                 
                 <div className="bg-primary-100 border-2 border-primary-300 rounded-2xl p-6 max-w-sm mx-auto">
