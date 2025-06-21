@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Shield, Leaf, Award } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import ContactForm from '../components/ContactForm';
+import OfferModal from '../components/OfferModal';
 import { getFeaturedProducts } from '../data/products';
+import { useOfferModal } from '../hooks/useOfferModal';
 
 const HomePage: React.FC = () => {
   const featuredProducts = getFeaturedProducts();
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
+  const { isModalOpen, closeModal } = useOfferModal();
   
   useEffect(() => {
     // Check if IntersectionObserver is supported
@@ -46,6 +49,9 @@ const HomePage: React.FC = () => {
   
   return (
     <div className="pt-16">
+      {/* Offer Modal */}
+      <OfferModal isOpen={isModalOpen} onClose={closeModal} />
+
       {/* Enhanced Hero Section */}
       <section className="relative h-screen flex items-center overflow-hidden" style={{minHeight: '95vh'}}>
         <div className="absolute inset-0 z-0">
