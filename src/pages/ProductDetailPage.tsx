@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Heart, ArrowLeft, Check } from 'lucide-react';
+import { ShoppingBag, Heart, ArrowLeft, Check, Sparkles, Award } from 'lucide-react';
 import { getProductById } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { useStripeCheckout } from '../hooks/useStripeCheckout';
@@ -83,39 +83,87 @@ const ProductDetailPage: React.FC = () => {
           Back to Products
         </button>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Image */}
-          <div className="bg-white rounded-xl overflow-hidden">
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              className="w-full h-auto object-cover"
-            />
+          <div className="relative">
+            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl overflow-hidden p-8">
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                className="w-full h-auto object-cover rounded-xl shadow-lg"
+              />
+            </div>
+            
+            {/* Trust Badges */}
+            <div className="grid grid-cols-2 gap-4 mt-6">
+              <div className="flex items-center p-4 bg-white rounded-lg border border-neutral-200">
+                <Award className="w-8 h-8 text-primary-500 mr-3" />
+                <div>
+                  <p className="font-medium text-sm text-neutral-800">Professional Grade</p>
+                  <p className="text-xs text-neutral-500">680g Size</p>
+                </div>
+              </div>
+              <div className="flex items-center p-4 bg-white rounded-lg border border-neutral-200">
+                <Sparkles className="w-8 h-8 text-primary-500 mr-3" />
+                <div>
+                  <p className="font-medium text-sm text-neutral-800">Premium Quality</p>
+                  <p className="text-xs text-neutral-500">Clean Ingredients</p>
+                </div>
+              </div>
+            </div>
           </div>
           
           {/* Product Details */}
           <div>
-            <h1 className="text-3xl font-display font-medium mb-2 text-primary-900">{product.name}</h1>
-            <p className="text-neutral-500 mb-4">{product.shortDescription}</p>
-            <p className="text-2xl font-medium text-primary-800 mb-6">${product.price.toFixed(2)}</p>
+            <div className="mb-4">
+              <span className="inline-block px-3 py-1 text-sm font-medium bg-primary-100 text-primary-700 rounded-full mb-4">
+                Professional Hydro Jelly Mask
+              </span>
+            </div>
             
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-2">
+            <h1 className="text-3xl lg:text-4xl font-display font-medium mb-4 text-primary-900 leading-tight">
+              {product.name}
+            </h1>
+            
+            <p className="text-lg text-neutral-600 mb-6 leading-relaxed">
+              {product.shortDescription}
+            </p>
+            
+            <div className="flex items-baseline mb-8">
+              <span className="text-4xl font-bold text-primary-800">C${product.price}</span>
+              <span className="text-lg text-neutral-500 ml-2">CAD</span>
+            </div>
+            
+            {/* Key Benefits Preview */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium text-neutral-800 mb-3">Key Benefits</h3>
+              <div className="grid grid-cols-2 gap-2">
+                {product.benefits.slice(0, 4).map((benefit, index) => (
+                  <div key={index} className="flex items-center text-sm text-neutral-600">
+                    <Check size={16} className="text-primary-500 mr-2 flex-shrink-0" />
+                    {benefit}
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-4">
                 <span className="text-neutral-700 font-medium">Quantity</span>
                 <div className="flex items-center border border-neutral-300 rounded-lg">
                   <button 
                     onClick={() => handleQuantityChange(quantity - 1)} 
-                    className="px-3 py-1 text-neutral-500 hover:text-neutral-800 transition-colors"
+                    className="px-4 py-2 text-neutral-500 hover:text-neutral-800 transition-colors"
                     disabled={quantity <= 1}
                   >
                     -
                   </button>
-                  <span className="px-4 py-1 border-l border-r border-neutral-300 min-w-[40px] text-center">
+                  <span className="px-6 py-2 border-l border-r border-neutral-300 min-w-[60px] text-center font-medium">
                     {quantity}
                   </span>
                   <button 
                     onClick={() => handleQuantityChange(quantity + 1)} 
-                    className="px-3 py-1 text-neutral-500 hover:text-neutral-800 transition-colors"
+                    className="px-4 py-2 text-neutral-500 hover:text-neutral-800 transition-colors"
                   >
                     +
                   </button>
@@ -154,6 +202,15 @@ const ProductDetailPage: React.FC = () => {
               </button>
             </div>
             
+            {/* Professional Notice */}
+            <div className="bg-primary-50 border border-primary-200 rounded-xl p-6 mb-8">
+              <h4 className="font-medium text-primary-800 mb-2">Professional Size • 680g</h4>
+              <p className="text-primary-700 text-sm leading-relaxed">
+                This professional-grade mask provides multiple treatments and is perfect for clinic use. 
+                Contact us for bulk pricing and partnership opportunities.
+              </p>
+            </div>
+            
             <div className="border-t border-neutral-200 pt-8">
               {/* Tabs */}
               <div className="flex space-x-6 border-b border-neutral-200 mb-6">
@@ -185,30 +242,54 @@ const ProductDetailPage: React.FC = () => {
                       : 'text-neutral-500 hover:text-neutral-800'
                   }`}
                 >
-                  Benefits
+                  All Benefits
                 </button>
               </div>
               
               {/* Tab Content */}
               <div className="text-neutral-600 leading-relaxed">
                 {activeTab === 'description' && (
-                  <p>{product.description}</p>
+                  <div>
+                    <p className="mb-4">{product.description}</p>
+                    <div className="bg-neutral-50 p-4 rounded-lg">
+                      <p className="text-sm text-neutral-700">
+                        <strong>Professional Application:</strong> Mix with water to create a luxurious hydro jelly mask. 
+                        Apply evenly, leave for 15-20 minutes, then peel off for instantly refreshed skin.
+                      </p>
+                    </div>
+                  </div>
                 )}
                 
                 {activeTab === 'ingredients' && (
-                  <ul className="list-disc pl-5 space-y-1">
-                    {product.ingredients.map((ingredient, index) => (
-                      <li key={index}>{ingredient}</li>
-                    ))}
-                  </ul>
+                  <div>
+                    <p className="mb-4 text-neutral-700">
+                      Our carefully selected ingredients work synergistically to deliver exceptional results:
+                    </p>
+                    <ul className="space-y-2">
+                      {product.ingredients.map((ingredient, index) => (
+                        <li key={index} className="flex items-start">
+                          <Check size={16} className="text-primary-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>{ingredient}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
                 
                 {activeTab === 'benefits' && (
-                  <ul className="list-disc pl-5 space-y-1">
-                    {product.benefits.map((benefit, index) => (
-                      <li key={index}>{benefit}</li>
-                    ))}
-                  </ul>
+                  <div>
+                    <p className="mb-4 text-neutral-700">
+                      Experience comprehensive skin transformation with these proven benefits:
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {product.benefits.map((benefit, index) => (
+                        <div key={index} className="flex items-start">
+                          <Check size={16} className="text-primary-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
